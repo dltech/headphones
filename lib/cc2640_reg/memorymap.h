@@ -60,3 +60,6 @@
 #define AUX_SCE      0x400E1000
 #define FCFG1        0x50001000
 #define CCFG         0x50003000
+
+// access to register with specified address
+#define  MMIO32(addr)		(*(volatile uint32_t *)(addr))
