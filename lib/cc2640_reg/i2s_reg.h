@@ -48,14 +48,16 @@
 
 /* Serial Interface Format Configuration */
 #define AIFFMTCFG		MMIO32(I2S0 + 0x0c)
-//
-#define		0x
-//
-#define		0x
-//
-#define		0x
-//
-#define		0x
+// The number of BCLK periods between a WCLK edge and MSB of the first word
+#define DATA_DELAY_SHIFT	8
+// The size of each word stored to or loaded from memory:
+#define	MEM_LEN_24	0x80
+// On the serial audio interface, data (and wclk) is sampled and clocked out
+#define	SMPL_EDGE	0x40
+// Selects dual- or single-phase format.
+#define	DUAL_PHASE	0x20
+// Number of bits per word (8-24)
+#define	WORD_LEN    0x0f
 
 /* Word Selection Bit Mask for Pin 0 */
 #define AIFWMASK0		MMIO32(I2S0 + 0x10)
@@ -83,14 +85,12 @@
 
 /* Samplestamp Generator Control Register */
 #define STMPCTL			MMIO32(I2S0 + 0x34)
-//
-#define		0x
-//
-#define		0x
-//
-#define		0x
-//
-#define		0x
+// Low until the output pins are ready to be started by the samplestamp generator.
+#define	OUT_RDY	0x4
+// Low until the input pins are ready to be started by the samplestamp generator.
+#define	IN_RDY	0x2
+// Enables the samplestamp generator.
+#define	STMP_EN	0x1
 
 /* Captured XOSC Counter Value, Capture Channel 0 */
 #define STMPXCNTCAPT0	MMIO32(I2S0 + 0x38)
@@ -141,13 +141,51 @@
 /* Current Value of XCNT */
 #define STMPXCNT		MMIO32(I2S0 + 0x60)
 
+/* no information */
 #define STMPXCNTCAPT1	MMIO32(I2S0 + 0x64)
 
 /* Captured WCLK Counter Value, Capture Channel 1 */
 #define STMPWCNTCAPT1	MMIO32(I2S0 + 0x68)
 // Channel 1 is idle and can not be sampled from an external event as with Channel 0
 
+/* Interrupt Mask Register */
 #define IRQMASK			MMIO32(I2S0 + 0x70)
+// IRQFLAGS.AIF_DMA_IN interrupt mask
+// IRQFLAGS.AIF_DMA_OUT interrupt mask
+// IRQFLAGS.WCLK_TIMEOUT interrupt mask
+// IRQFLAGS.BUS_ERR interrupt mask
+// IRQFLAGS.WCLK_ERR interrupt mask
+// IRQFLAGS.PTR_ERR interrupt mask.
+
+/* Raw Interrupt Status Register */
 #define IRQFLAGS		MMIO32(I2S0 + 0x74)
+// Set when condition for this bit field event occurs
+// Set when condition for this bit field event occurs
+// Set when the sample stamp generator does not detect a positive WCLK edge.
+// Set when a DMA operation is not completed in time
+// Set when an unexpected WCLK edge, when two WCLK edges are less than 4 BCLK ...
+// Set when AIFINPTRNEXT or AIFOUTPTRNEXT has not been loaded
+
+/* Interrupt Set Register */
 #define IRQSET			MMIO32(I2S0 + 0x78)
+// Sets the interrupt of IRQFLAGS.AIF_DMA_IN
+// Sets the interrupt of IRQFLAGS.AIF_DMA_OUT
+// Sets the interrupt of IRQFLAGS.WCLK_TIMEOUT
+// Sets the interrupt of IRQFLAGS.BUS_ERR
+// Sets the interrupt of IRQFLAGS.WCLK_ERR
+// Sets the interrupt of IRQFLAGS.PTR_ERR
+
+/* Interrupt Clear Register */
 #define IRQCLR			MMIO32(I2S0 + 0x7c)
+// Clears the interrupt of IRQFLAGS.AIF_DMA_IN
+#define	AIF_DMA_IN      0x20
+// Clears the interrupt of IRQFLAGS.AIF_DMA_OUT
+#define	AIF_DMA_OUT	    0x10
+// Clears the interrupt of IRQFLAGS.WCLK_TIMEOUT
+#define	WCLK_TIMEOUT    0x08
+// Clears the interrupt of IRQFLAGS.BUS_ERR
+#define	BUS_ERR         0x04
+// Clears the interrupt of IRQFLAGS.WCLK_ERR
+#define	WCLK_ERR        0x02
+// Clears the interrupt of IRQFLAGS.PTR_ERR
+#define	PTR_ERR         0x01
