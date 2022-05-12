@@ -1,3 +1,5 @@
+#ifndef H_GPIO_REGS
+#define H_GPIO_REGS
 /*
  * Simple CC2640 headphones
  * GPIO registers
@@ -33,7 +35,7 @@
 // 0: Output enable active. SCLK_LF output on IO pin that has
 #define OE_N		0x01
 
-/* Alias register for byte access to each bit in DOUT31_0 
+/* Alias register for byte access to each bit in DOUT31_0
 	Data Out 3 to 0 */
 #define DOUT3_0		MMIO32(GPIO + 0x00)
 // Sets the state of the pin that is configured as DIO#3
@@ -338,3 +340,4 @@
 /* Configuration of DIO31 */
 #define	IOCFG31		MMIO32(IOC + 0x7c)
 
+#endif

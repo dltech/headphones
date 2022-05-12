@@ -1,3 +1,5 @@
+#ifndef H_INTERRUPT_REGS
+#define H_INTERRUPT_REGS
 /*
  * Simple CC2640 headphones
  * Interrupts and Events registers
@@ -325,3 +327,5 @@
 #define SWEV2   0x00010000
 #define SWEV1   0x00000100
 #define SWEV0   0x00000001
+
+#endif

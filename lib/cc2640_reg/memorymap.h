@@ -1,3 +1,5 @@
+#ifndef H_MEMORYMAP
+#define H_MEMORYMAP
 /*
  * Simple CC2640 headphones
  * Memory map for peripherial
@@ -63,3 +65,5 @@
 
 // access to register with specified address
 #define  MMIO32(addr)		(*(volatile uint32_t *)(addr))
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef H_I2S_REGS
+#define H_I2S_REGS
 /*
  * Simple CC2640 headphones
  * I2S registers
@@ -189,3 +191,5 @@
 #define	WCLK_ERR        0x02
 // Clears the interrupt of IRQFLAGS.PTR_ERR
 #define	PTR_ERR         0x01
+
+#endif
