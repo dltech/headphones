@@ -18,6 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* FMC and Efuse Status */
 #define FLASH_STAT          MMIO32(FLASH + 0x001c)
 // Efuse scanning detected if fuse ROM is blank.
