@@ -21,13 +21,19 @@
 #include "memorymap.h"
 
 /* Configuration */
-#define CFG         MMIO32(GPT0 + 0x000)
+#define CFG0         MMIO32(GPT0 + 0x000)
+#define CFG1         MMIO32(GPT1 + 0x000)
+#define CFG2         MMIO32(GPT2 + 0x000)
+#define CFG3         MMIO32(GPT3 + 0x000)
 // GPT Configuration
 #define CFG_32BIT   0x00000000
 #define CFG_16BIT   0x00000004
 
 /* Timer A Mode */
-#define TAMR        MMIO32(GPT0 + 0x004)
+#define TAMR0        MMIO32(GPT0 + 0x004)
+#define TAMR1        MMIO32(GPT1 + 0x004)
+#define TAMR2        MMIO32(GPT2 + 0x004)
+#define TAMR3        MMIO32(GPT3 + 0x004)
 // Timer Compare Action Select
 #define TCACT_DIS_CMP                           0x0000
 #define TCACT_DIS_TOUT_TOGGLE                   0x2000
@@ -65,7 +71,10 @@
 #define TAMR_CAPTURE    0x3
 
 /* Timer B Mode */
-#define TBMR        MMIO32(GPT0 + 0x008)
+#define TBMR0        MMIO32(GPT0 + 0x008)
+#define TBMR1        MMIO32(GPT1 + 0x008)
+#define TBMR2        MMIO32(GPT2 + 0x008)
+#define TBMR3        MMIO32(GPT3 + 0x008)
 // Timer Compare Action Select
 // One-Shot/Periodic Interrupt Disable
 #define TBCINTD                                 0x1000
@@ -95,7 +104,10 @@
 #define TBMR_CAPTURE                            0x3
 
 /* Control */
-#define CTL         MMIO32(GPT0 + 0x00c)
+#define CTL0         MMIO32(GPT0 + 0x00c)
+#define CTL1         MMIO32(GPT1 + 0x00c)
+#define CTL2         MMIO32(GPT2 + 0x00c)
+#define CTL3         MMIO32(GPT3 + 0x00c)
 // GPT Timer B PWM Output Level
 #define TBPWML                  0x4000
 // GPT Timer B Event Mode
@@ -118,7 +130,10 @@
 #define TAEN                    0x0001
 
 /* Synch Register */
-#define SYNC        MMIO32(GPT0 + 0x010)
+#define SYNC0        MMIO32(GPT0 + 0x010)
+#define SYNC1        MMIO32(GPT1 + 0x010)
+#define SYNC2        MMIO32(GPT2 + 0x010)
+#define SYNC3        MMIO32(GPT3 + 0x010)
 // Synchronize GPT Timer 3.
 #define SYNC3_NO    0x00
 #define SYNC3_TOUTA 0x40
@@ -141,7 +156,10 @@
 #define SYNC0_BOTH  0x03
 
 /* Interrupt Mask */
-#define IMR         MMIO32(GPT0 + 0x018)
+#define IMR0         MMIO32(GPT0 + 0x018)
+#define IMR1         MMIO32(GPT1 + 0x018)
+#define IMR2         MMIO32(GPT2 + 0x018)
+#define IMR3         MMIO32(GPT3 + 0x018)
 // Enabling this bit will make the RIS.DMABRIS interrupt propagate to MIS.DMABMIS
 #define DMABIM  0x2000
 // Enabling this bit will make the RIS.TBMRIS interrupt propagate to MIS.TBMMIS
@@ -164,7 +182,10 @@
 #define TATOIM  0x0001
 
 /* Raw Interrupt Status */
-#define RIS         MMIO32(GPT0 + 0x01c)
+#define RIS0         MMIO32(GPT0 + 0x01c)
+#define RIS1         MMIO32(GPT1 + 0x01c)
+#define RIS2         MMIO32(GPT2 + 0x01c)
+#define RIS3         MMIO32(GPT3 + 0x01c)
 // GPT Timer B DMA Done Raw Interrupt Status
 #define DMABRIS 0x2000
 // GPT Timer B Match Raw Interrupt
@@ -187,7 +208,10 @@
 #define TATORIS 0x0001
 
 /* Masked Interrupt Status */
-#define MIS         MMIO32(GPT0 + 0x020)
+#define MIS0         MMIO32(GPT0 + 0x020)
+#define MIS1         MMIO32(GPT1 + 0x020)
+#define MIS2         MMIO32(GPT2 + 0x020)
+#define MIS3         MMIO32(GPT3 + 0x020)
 // GPT Timer B DMA Done Masked Interrupt Status
 #define DMABMIS 0x2000
 // GPT Timer B Match Masked Interrupt
@@ -210,7 +234,10 @@
 #define TATOMIS 0x0001
 
 /* Interrupt Clear */
-#define ICLR        MMIO32(GPT0 + 0x024)
+#define ICLR0        MMIO32(GPT0 + 0x024)
+#define ICLR1        MMIO32(GPT1 + 0x024)
+#define ICLR2        MMIO32(GPT2 + 0x024)
+#define ICLR3        MMIO32(GPT3 + 0x024)
 // GPT Timer B DMA Done Interrupt Status clear
 #define DMABINT     0x2000
 // GPT Timer B Match Interrupt clear
@@ -233,73 +260,124 @@
 #define TATOCINT    0x0001
 
 /* Timer A Interval Load Register */
-#define TAILR       MMIO32(GPT0 + 0x028)
+#define TAILR0       MMIO32(GPT0 + 0x028)
+#define TAILR1       MMIO32(GPT1 + 0x028)
+#define TAILR2       MMIO32(GPT2 + 0x028)
+#define TAILR3       MMIO32(GPT3 + 0x028)
 // GPT Timer A Interval Load Register
 
 /* Timer B Interval Load Register */
-#define TBILR       MMIO32(GPT0 + 0x02c)
+#define TBILR0       MMIO32(GPT0 + 0x02c)
+#define TBILR1       MMIO32(GPT1 + 0x02c)
+#define TBILR2       MMIO32(GPT2 + 0x02c)
+#define TBILR3       MMIO32(GPT3 + 0x02c)
 // GPT Timer B Interval Load Register
 
 /* Timer A Match Register */
-#define TAMATCHR    MMIO32(GPT0 + 0x030)
+#define TAMATCHR0    MMIO32(GPT0 + 0x030)
+#define TAMATCHR1    MMIO32(GPT1 + 0x030)
+#define TAMATCHR2    MMIO32(GPT2 + 0x030)
+#define TAMATCHR3    MMIO32(GPT3 + 0x030)
 
 /* Timer B Match Register */
-#define TBMATCHR    MMIO32(GPT0 + 0x034)
+#define TBMATCHR0    MMIO32(GPT0 + 0x034)
+#define TBMATCHR1    MMIO32(GPT1 + 0x034)
+#define TBMATCHR2    MMIO32(GPT2 + 0x034)
+#define TBMATCHR3    MMIO32(GPT3 + 0x034)
 
 /* Timer A Pre-scale */
-#define TAPR        MMIO32(GPT0 + 0x038)
+#define TAPR0        MMIO32(GPT0 + 0x038)
+#define TAPR1        MMIO32(GPT1 + 0x038)
+#define TAPR2        MMIO32(GPT2 + 0x038)
+#define TAPR3        MMIO32(GPT3 + 0x038)
 #define TAPSR_MSK   0xff
 
 /* Timer B Pre-scale */
-#define TBPR        MMIO32(GPT0 + 0x03c)
+#define TBPR0        MMIO32(GPT0 + 0x03c)
+#define TBPR1        MMIO32(GPT1 + 0x03c)
+#define TBPR2        MMIO32(GPT2 + 0x03c)
+#define TBPR3        MMIO32(GPT3 + 0x03c)
 #define TBPSR_MSK   0xff
 
 /* Timer A Pre-scale Match */
-#define TAPMR       MMIO32(GPT0 + 0x040)
+#define TAPMR0       MMIO32(GPT0 + 0x040)
+#define TAPMR1       MMIO32(GPT1 + 0x040)
+#define TAPMR2       MMIO32(GPT2 + 0x040)
+#define TAPMR3       MMIO32(GPT3 + 0x040)
 // In 16 bit mode this field holds bits 23 to 16.
 #define TAPSMR_MSK   0xff
 
 /* Timer B Pre-scale Match */
-#define TBPMR       MMIO32(GPT0 + 0x044)
+#define TBPMR0       MMIO32(GPT0 + 0x044)
+#define TBPMR1       MMIO32(GPT1 + 0x044)
+#define TBPMR2       MMIO32(GPT2 + 0x044)
+#define TBPMR3       MMIO32(GPT3 + 0x044)
 // In 16 bit mode this field holds bits 23 to 16.
 #define TBPSMR_MSK   0xff
 
 /* Timer A Register */
-#define TAR         MMIO32(GPT0 + 0x048)
+#define TAR0         MMIO32(GPT0 + 0x048)
+#define TAR1         MMIO32(GPT1 + 0x048)
+#define TAR2         MMIO32(GPT2 + 0x048)
+#define TAR3         MMIO32(GPT3 + 0x048)
 // GPT Timer A Register
 
 /* Timer B Register */
-#define TBR         MMIO32(GPT0 + 0x04c)
+#define TBR0         MMIO32(GPT0 + 0x04c)
+#define TBR1         MMIO32(GPT1 + 0x04c)
+#define TBR2         MMIO32(GPT2 + 0x04c)
+#define TBR3         MMIO32(GPT3 + 0x04c)
 // GPT Timer B Register
 
 /* Timer A Value */
-#define TAV         MMIO32(GPT0 + 0x050)
+#define TAV0         MMIO32(GPT0 + 0x050)
+#define TAV1         MMIO32(GPT1 + 0x050)
+#define TAV2         MMIO32(GPT2 + 0x050)
+#define TAV3         MMIO32(GPT3 + 0x050)
 // GPT Timer A Register
 
 /* Timer B Value */
-#define TBV         MMIO32(GPT0 + 0x054)
+#define TBV0         MMIO32(GPT0 + 0x054)
+#define TBV1         MMIO32(GPT1 + 0x054)
+#define TBV2         MMIO32(GPT2 + 0x054)
+#define TBV3         MMIO32(GPT3 + 0x054)
 // GPT Timer B Register
 
 /* Timer A Pre-scale Snap-shot */
-#define TAPS        MMIO32(GPT0 + 0x05c)
+#define TAPS0        MMIO32(GPT0 + 0x05c)
+#define TAPS1        MMIO32(GPT1 + 0x05c)
+#define TAPS2        MMIO32(GPT2 + 0x05c)
+#define TAPS3        MMIO32(GPT3 + 0x05c)
 // GPT Timer A Pre-scaler
 #define PSS_MSK   0xff
 
 /* Timer B Pre-scale Snap-shot */
-#define TBPS        MMIO32(GPT0 + 0x060)
+#define TBPS0        MMIO32(GPT0 + 0x060)
+#define TBPS1        MMIO32(GPT1 + 0x060)
+#define TBPS2        MMIO32(GPT2 + 0x060)
+#define TBPS3        MMIO32(GPT3 + 0x060)
 // GPT Timer B Pre-scaler
 
 /* Timer A Pre-scale Value */
-#define TAPV        MMIO32(GPT0 + 0x064)
+#define TAPV0        MMIO32(GPT0 + 0x064)
+#define TAPV1        MMIO32(GPT1 + 0x064)
+#define TAPV2        MMIO32(GPT2 + 0x064)
+#define TAPV3        MMIO32(GPT3 + 0x064)
 // GPT Timer A Pre-scaler Value
 #define PSV_MSK   0xff
 
 /* Timer B Pre-scale Value */
-#define TBPV        MMIO32(GPT0 + 0x068)
+#define TBPV0        MMIO32(GPT0 + 0x068)
+#define TBPV1        MMIO32(GPT1 + 0x068)
+#define TBPV2        MMIO32(GPT2 + 0x068)
+#define TBPV3        MMIO32(GPT3 + 0x068)
 // GPT Timer B Pre-scaler Value
 
 /* DMA Event */
-#define DMAEV       MMIO32(GPT0 + 0x06c)
+#define DMAEV0       MMIO32(GPT0 + 0x06c)
+#define DMAEV1       MMIO32(GPT1 + 0x06c)
+#define DMAEV2       MMIO32(GPT2 + 0x06c)
+#define DMAEV3       MMIO32(GPT3 + 0x06c)
 // GPT Timer B Match DMA Trigger Enable
 #define TBMDMAEN    0x800
 // GPT Timer B Capture Event DMA Trigger Enable
@@ -318,11 +396,17 @@
 #define TATODMAEN   0x001
 
 /* Peripheral Version */
-#define VERSION     MMIO32(GPT0 + 0xfb0)
+#define VERSION0     MMIO32(GPT0 + 0xfb0)
+#define VERSION1     MMIO32(GPT1 + 0xfb0)
+#define VERSION2     MMIO32(GPT2 + 0xfb0)
+#define VERSION3     MMIO32(GPT3 + 0xfb0)
 // Timer Revision.
 
 /* Combined CCP Output */
-#define ANDCCP      MMIO32(GPT0 + 0xfb4)
+#define ANDCCP0      MMIO32(GPT0 + 0xfb4)
+#define ANDCCP1      MMIO32(GPT1 + 0xfb4)
+#define ANDCCP2      MMIO32(GPT2 + 0xfb4)
+#define ANDCCP3      MMIO32(GPT3 + 0xfb4)
 // Enables AND operation of the CCP outputs for timers A and B.
 #define CCP_AND_EN   0x1
 
