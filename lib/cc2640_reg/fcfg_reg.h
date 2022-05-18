@@ -1,3 +1,5 @@
+#ifndef H_FCFG_REGS
+#define H_FCFG_REGS
 /*
  * Simple CC2640 headphones
  * Device Configuration registers
@@ -1175,3 +1177,5 @@
 // Worst-case baseline maximum powerdown current, in units of 0.5uA
 #define BASELINE_SFT        0
 #define BASELINE_MSK        0xff
+
+#endif
