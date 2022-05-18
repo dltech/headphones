@@ -18,6 +18,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "memorymap.h"
+
 /* Wake-up Selector For MCU */
 #define MCUWUSEL		MMIO32(AON_EVENT + 0x00)
 #define WU3_EV_SHIFT  24

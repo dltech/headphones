@@ -18,6 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include "memorymap.h"
 
 /* WCLK Source Selection */
 #define AIFWCLKSRC		MMIO32(I2S0 + 0x00)
