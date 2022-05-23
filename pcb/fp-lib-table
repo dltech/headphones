@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "lacal")(type "KiCad")(uri "${KIPRJMOD}/lacal.pretty")(options "")(descr ""))
+  (lib (name "local")(type "KiCad")(uri "${KIPRJMOD}/local.pretty")(options "")(descr ""))
+)
